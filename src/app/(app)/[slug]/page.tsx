@@ -20,30 +20,40 @@ export default async function Page({ params: { slug = 'home' } }) {
 }
 
 export const getPage = async (slug: string) => {
-  const payload = await getPayload({ config: configPromise })
-  const pages = await payload.find({
-    collection: 'pages',
-    draft: false,
-    limit: 1,
-    overrideAccess: false,
-    where: {
-      slug: {
-        equals: slug,
+  try {
+    const payload = await getPayload({ config: configPromise })
+    const pages = await payload.find({
+      collection: 'pages',
+      draft: false,
+      limit: 1,
+      overrideAccess: false,
+      where: {
+        slug: {
+          equals: slug,
+        },
       },
-    },
-  })
-
-  return pages.docs[0]
+    })
+  
+    return pages.docs[0]
+  }
+  catch(err) {
+    console.error('Error in getPage', err)
+  }
 }
 
 export async function generateStaticParams() {
-  const payload = await getPayload({ config: configPromise })
-  const pages = await payload.find({
-    collection: 'pages',
-    draft: false,
-    limit: 1000,
-    overrideAccess: false,
-  })
+  try {
+    const payload = await getPayload({ config: configPromise })
+    const pages = await payload.find({
+      collection: 'pages',
+      draft: false,
+      limit: 1000,
+      overrideAccess: false,
+    })
 
-  return pages.docs.map((doc) => doc.slug!)
+    return pages.docs.map((doc) => doc.slug!)
+  } catch (error) {
+    console.error('Error in generateStaticParams:', error)
+    return [] // Return an empty array if there's an error
+  }
 }

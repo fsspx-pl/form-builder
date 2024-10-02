@@ -18,14 +18,16 @@ export const metadata = {
 }
 
 export const getAllGlobals = async (): Promise<IGlobals> => {
-  const [mainMenu] = await Promise.all([
-    fetch(`${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/globals/main-menu?depth=1`).then((res) =>
-      res.json(),
-    ),
-  ])
-
-  return {
-    mainMenu,
+  try {
+    const [mainMenu] = await Promise.all([
+      fetch(`${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/globals/main-menu?depth=1`).then((res) =>
+        res.json(),
+      ),
+    ])
+    return { mainMenu }
+  } catch (err) {
+    console.error('Error in getAllGlobals:', err)
+    throw new Error()
   }
 }
 
