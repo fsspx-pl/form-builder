@@ -20,9 +20,10 @@ export const metadata = {
 export const getAllGlobals = async (): Promise<IGlobals> => {
   try {
     const [mainMenu] = await Promise.all([
-      fetch(`${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/globals/main-menu?depth=1`).then((res) =>
-        res.json(),
-      ),
+      fetch(`${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/globals/main-menu?depth=1`).then((res) => {
+        console.log(res);
+        return res.json()
+      }),
     ])
     return { mainMenu }
   } catch (err) {
