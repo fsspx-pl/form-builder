@@ -20,13 +20,9 @@ import { MainMenu } from './_payload/globals/MainMenu'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-import BeforeLogin from './_payload/components/BeforeLogin'
 
 export default buildConfig({
   admin: {
-    components: {
-      beforeLogin: [BeforeLogin],
-    },
     user: Users.slug,
   },
   collections: [Pages, Users],
@@ -35,26 +31,25 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  editor: lexicalEditor({
-    features: () => {
-      return [
-        BoldFeature(),
-        ItalicFeature(),
-        LinkFeature({ enabledCollections: ['pages'] }),
-        HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3'] }),
-        FixedToolbarFeature(),
-        InlineToolbarFeature(),
-      ]
-    },
-  }),
+  editor: lexicalEditor(
+  // {
+  //   features: () => {
+  //     return [
+  //       BoldFeature(),
+  //       ItalicFeature(),
+  //       LinkFeature({ enabledCollections: ['pages'] }),
+  //       HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3'] }),
+  //       FixedToolbarFeature(),
+  //       InlineToolbarFeature(),
+  //     ]
+  //   },
+  // }
+  ),
   globals: [MainMenu],
   plugins: [
     formBuilderPlugin({
       fields: {
         payment: false,
-      },
-      formOverrides: {
-        fields: [],
       },
     }),
   ],
