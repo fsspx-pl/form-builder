@@ -2,6 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import classes from './index.module.scss'
+import { Url } from 'next/dist/shared/lib/router/router'
 
 export type Props = {
   appearance?: 'default' | 'primary' | 'secondary'
@@ -38,8 +39,7 @@ export const Button: React.FC<Props> = ({
   const elementProps = {
     ...newTabProps,
     className,
-    form,
-    href,
+    form
   }
 
   const content = (
@@ -48,10 +48,8 @@ export const Button: React.FC<Props> = ({
     </div>
   )
 
-  if(!elementProps.href) return
-
   return (
-    <Element {...elementProps} href={elementProps.href}>
+    <Element {...elementProps} href={href as Url}>
       <React.Fragment>
         {el === 'link' && href && (
           <Link {...newTabProps} className={elementProps.className} href={href}>

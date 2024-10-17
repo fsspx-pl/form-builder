@@ -4,6 +4,10 @@ import { MainMenu } from '@/payload-types';
 import config from '@payload-config';
 import { getPayloadHMR } from '@payloadcms/next/utilities';
 import '../../css/app.scss';
+import { GlobalsProvider } from '@/providers/Globals';
+import { ModalContainer, ModalProvider } from '@faceless-ui/modal';
+import { CloseModalOnRouteChange } from '@/components/CloseModalOnRouteChange';
+import { Header } from '@/components/Header';
 
 export const metadata = {
   description: 'An example of how to authenticate with Payload from a Next.js app.',
@@ -32,15 +36,14 @@ export default async function Layout({ children }: { children: React.ReactNode }
     <html lang="en" id="app">
       <body>
         <React.Fragment>
-          {/* <GlobalsProvider mainMenu={mainMenu}> */}
-            {/* <ModalProvider classPrefix="form" transTime={0} zIndex="var(--modal-z-index)"> */}
-        {/* /      <CloseModalOnRouteChange /> */}
-              {/* <Header /> */}
-              {/* <Component {...pageProps} /> */}
+          <GlobalsProvider mainMenu={mainMenu}>
+            <ModalProvider classPrefix="form" transTime={0} zIndex="var(--modal-z-index)">
+              <CloseModalOnRouteChange />
+              <Header />
               {children}
-              {/* <ModalContainer /> */}
-            {/* </ModalProvider> */}
-          {/* </GlobalsProvider> */}
+              <ModalContainer />
+            </ModalProvider>
+          </GlobalsProvider>
         </React.Fragment>
       </body>
     </html>

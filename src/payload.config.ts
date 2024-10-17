@@ -12,6 +12,7 @@ import {
 import path from 'path'
 import { buildConfig } from 'payload/config'
 import { fileURLToPath } from 'url'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 
 import { Pages } from './_payload/collections/Pages'
 import { Users } from './_payload/collections/Users'
@@ -19,7 +20,6 @@ import { MainMenu } from './_payload/globals/MainMenu'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
-
 
 export default buildConfig({
   admin: {
@@ -32,18 +32,18 @@ export default buildConfig({
     url: process.env.DATABASE_URI || '',
   }),
   editor: lexicalEditor(
-  // {
-  //   features: () => {
-  //     return [
-  //       BoldFeature(),
-  //       ItalicFeature(),
-  //       LinkFeature({ enabledCollections: ['pages'] }),
-  //       HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3'] }),
-  //       FixedToolbarFeature(),
-  //       InlineToolbarFeature(),
-  //     ]
-  //   },
-  // }
+  {
+    features: () => {
+      return [
+        BoldFeature(),
+        ItalicFeature(),
+        LinkFeature({ enabledCollections: ['pages'] }),
+        HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3'] }),
+        FixedToolbarFeature(),
+        InlineToolbarFeature(),
+      ]
+    },
+  }
   ),
   globals: [MainMenu],
   plugins: [
@@ -57,4 +57,16 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
+  email: nodemailerAdapter({
+    defaultFromAddress: process.env.FROM_ADDRESS ?? '',
+    defaultFromName: process.env.FROM_NAME ?? '',
+    transportOptions: {
+      host: process.env.SMTP_HOST,
+      port: process.env.SMTP_PORT,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    },
+  }),
 })

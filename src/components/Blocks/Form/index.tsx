@@ -165,7 +165,7 @@ export const FormBlock: React.FC<
             </div>
             { submitButtonLabel && (
               <Button appearance="primary" el="button" form={formID} label={submitButtonLabel} />
-            ) } 
+            ) }
           </form>
         )}
       </div>

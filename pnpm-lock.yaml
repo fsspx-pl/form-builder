@@ -32,6 +32,9 @@ importers:
       '@payloadcms/db-mongodb':
         specifier: 3.0.0-beta.40
         version: 3.0.0-beta.40(@aws-sdk/client-sso-oidc@3.576.0)(payload@3.0.0-beta.40(@swc/core@1.5.7(@swc/helpers@0.5.11))(@swc/types@0.1.7)(graphql@16.8.1)(typescript@5.4.5))
+      '@payloadcms/email-nodemailer':
+        specifier: 3.0.0-beta.40
+        version: 3.0.0-beta.40(payload@3.0.0-beta.40(@swc/core@1.5.7(@swc/helpers@0.5.11))(@swc/types@0.1.7)(graphql@16.8.1)(typescript@5.4.5))
       '@payloadcms/next':
         specifier: 3.0.0-beta.40
         version: 3.0.0-beta.40(@types/react@18.3.2)(graphql@16.8.1)(monaco-editor@0.48.0)(next@15.0.0-rc.0(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.4))(payload@3.0.0-beta.40(@swc/core@1.5.7(@swc/helpers@0.5.11))(@swc/types@0.1.7)(graphql@16.8.1)(typescript@5.4.5))(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(typescript@5.4.5)
@@ -789,6 +792,12 @@ packages:
 
   '@payloadcms/db-mongodb@3.0.0-beta.40':
     resolution: {integrity: sha512-Lhn8sASW0Jipz9iC+cwfi5X1lSx4m74gqJKUpDjkuwksYLNZV61G4UzhaLLOSkgUo4mL/Tn8Wi/zeRg1z/AwXg==}
+    peerDependencies:
+      payload: 3.0.0-beta.40
+
+  '@payloadcms/email-nodemailer@3.0.0-beta.40':
+    resolution: {integrity: sha512-FIQK7KkHUXWkh7DAs/EJYRF/NIILmpwKEDE5aNfRdFSs+HEUuxsENixHmOR4BZF4BFIKTVTaEN/AwY/Po3srCg==}
+    engines: {node: '>=18.20.2'}
     peerDependencies:
       payload: 3.0.0-beta.40
 
@@ -2047,6 +2056,10 @@ packages:
 
   node-addon-api@6.1.0:
     resolution: {integrity: sha512-+eawOlIgy680F0kBzPUNFhMZGtJ1YmqM6l4+Crf4IkImjYrO/mqPwRMh352g23uIaQKFItcQ64I7KMaJxHgAVA==}
+
+  nodemailer@6.9.10:
+    resolution: {integrity: sha512-qtoKfGFhvIFW5kLfrkw2R6Nm6Ur4LNUMykyqu6n9BRKJuyQrqEGwdXXUAbwWEKt33dlWUGXb7rzmJP/p4+O+CA==}
+    engines: {node: '>=6.0.0'}
 
   normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
@@ -3787,6 +3800,11 @@ snapshots:
       - aws-crt
       - supports-color
 
+  '@payloadcms/email-nodemailer@3.0.0-beta.40(payload@3.0.0-beta.40(@swc/core@1.5.7(@swc/helpers@0.5.11))(@swc/types@0.1.7)(graphql@16.8.1)(typescript@5.4.5))':
+    dependencies:
+      nodemailer: 6.9.10
+      payload: 3.0.0-beta.40(@swc/core@1.5.7(@swc/helpers@0.5.11))(@swc/types@0.1.7)(graphql@16.8.1)(typescript@5.4.5)
+
   '@payloadcms/graphql@3.0.0-beta.40(graphql@16.8.1)(payload@3.0.0-beta.40(@swc/core@1.5.7(@swc/helpers@0.5.11))(@swc/types@0.1.7)(graphql@16.8.1)(typescript@5.4.5))(typescript@5.4.5)':
     dependencies:
       graphql: 16.8.1
@@ -5306,6 +5324,8 @@ snapshots:
       semver: 7.6.2
 
   node-addon-api@6.1.0: {}
+
+  nodemailer@6.9.10: {}
 
   normalize-path@3.0.0: {}
 
