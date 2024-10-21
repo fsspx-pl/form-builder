@@ -37,7 +37,6 @@ export default buildConfig({
       return [
         BoldFeature(),
         ItalicFeature(),
-        LinkFeature({ enabledCollections: ['pages'] }),
         HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3'] }),
         FixedToolbarFeature(),
         InlineToolbarFeature(),
