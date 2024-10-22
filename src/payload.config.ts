@@ -27,7 +27,7 @@ export default buildConfig({
   },
   collections: [Pages, Users],
   // We need to set CORS rules pointing to our hosted domains for the frontend to be able to submit to our API
-  cors: ['http://localhost:3000', 'http://localhost:3001'],
+  cors: [process.env.NEXT_PUBLIC_PAYLOAD_URL || ''],
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
