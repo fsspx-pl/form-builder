@@ -1,4 +1,4 @@
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 
 import { publishedOnly } from '../access/publishedOnly'
 import { FormBlock } from '../blocks/Form'
