@@ -49,6 +49,13 @@ export default buildConfig({
       fields: {
         payment: false,
       },
+      formSubmissionOverrides: {
+        admin: {
+          components: {
+            beforeListTable: ['src/components/ExportButton/index.tsx#ExportButton'],
+          },
+        },
+      },
     }),
   ],
   secret: process.env.PAYLOAD_SECRET || '',
