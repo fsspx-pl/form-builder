@@ -1,6 +1,4 @@
-import type { Field } from 'payload'
-
-import deepMerge from '../utilities/deepMerge'
+import { deepMerge, GroupField, type Field } from 'payload'
 
 export const appearanceOptions = {
   default: {
@@ -26,9 +24,9 @@ type LinkType = (options?: {
 }) => Field
 
 const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = {}) => {
-  const linkResult: Field = {
+  const linkResult: GroupField = {
     name: 'link',
-    type: 'group',
+    type: 'group' as const,
     admin: {
       hideGutter: true,
     },
@@ -139,7 +137,7 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
     })
   }
 
-  return deepMerge(linkResult, overrides)
+  return deepMerge(linkResult, overrides) as GroupField
 }
 
 export default link

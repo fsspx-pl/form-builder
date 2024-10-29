@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { importMap } from '@/app/(payload)/admin/importMap.js'
 import { MainMenu } from '@/payload-types';
 import config from '@payload-config';
 import { getPayloadHMR } from '@payloadcms/next/utilities';

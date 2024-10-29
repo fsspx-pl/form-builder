@@ -1,5 +1,4 @@
 import type { GlobalConfig } from 'payload'
-
 import link from '../fields/link'
 
 export const MainMenu: GlobalConfig = {

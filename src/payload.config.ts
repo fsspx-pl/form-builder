@@ -1,4 +1,5 @@
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import {
   BoldFeature,
@@ -6,13 +7,11 @@ import {
   HeadingFeature,
   InlineToolbarFeature,
   ItalicFeature,
-  LinkFeature,
-  lexicalEditor,
+  lexicalEditor
 } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
-import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 
 import { Pages } from './_payload/collections/Pages'
 import { Users } from './_payload/collections/Users'
