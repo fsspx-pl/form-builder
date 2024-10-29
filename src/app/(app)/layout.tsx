@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { importMap } from '@/app/(payload)/admin/importMap.js'
+import { CloseModalOnRouteChange } from '@/components/CloseModalOnRouteChange';
+import { Header } from '@/components/Header';
 import { MainMenu } from '@/payload-types';
+import { GlobalsProvider } from '@/providers/Globals';
+import { ModalContainer, ModalProvider } from '@faceless-ui/modal';
 import config from '@payload-config';
 import { getPayloadHMR } from '@payloadcms/next/utilities';
 import '../../css/app.scss';
-import { GlobalsProvider } from '@/providers/Globals';
-import { ModalContainer, ModalProvider } from '@faceless-ui/modal';
-import { CloseModalOnRouteChange } from '@/components/CloseModalOnRouteChange';
-import { Header } from '@/components/Header';
 
 export const metadata = {
   description: 'An example of how to authenticate with Payload from a Next.js app.',
