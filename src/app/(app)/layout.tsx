@@ -9,11 +9,6 @@ import config from '@payload-config';
 import { getPayloadHMR } from '@payloadcms/next/utilities';
 import '../../css/app.scss';
 
-export const metadata = {
-  description: 'An example of how to authenticate with Payload from a Next.js app.',
-  title: 'Payload Auth + Next.js App Router Example',
-}
-
 async function getAllGlobals(): Promise<MainMenu> {
   try {
     const payload = await getPayloadHMR({ config })

@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import { Gutter } from '../Gutter'
-import { Logo } from '../Logo'
+import { LogoText } from '../LogoText'
 import classes from './index.module.scss'
 
 type HeaderBarProps = {
@@ -15,7 +15,7 @@ export const HeaderBar: React.FC<HeaderBarProps> = ({ children }) => {
     <header className={classes.header}>
       <Gutter className={classes.wrap}>
         <Link href="/">
-          <Logo />
+          <LogoText />
         </Link>
       </Gutter>
     </header>

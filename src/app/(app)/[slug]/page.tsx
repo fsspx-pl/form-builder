@@ -4,6 +4,21 @@ import { getPayload } from 'payload'
 import React from 'react'
 
 import Blocks from '../../../components/Blocks'
+import { Metadata } from 'next'
+import { metadata } from '../metadata.constants'
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const page = await getPage(params.slug)
+  
+  if (!page) return metadata
+
+  return {
+    title: `${page.title} - FSSPX - Bractwo Św. Piusa X`,
+    openGraph: {
+      title: page.title,
+    },
+  }
+}
 
 export default async function Page({ params: { slug = 'home' } }) {
   const page = await getPage(slug)

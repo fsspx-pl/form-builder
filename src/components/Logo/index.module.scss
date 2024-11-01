@@ -1,0 +1,9 @@
+.logo {
+  color: black;
+}
+
+@media (prefers-color-scheme: dark) {
+  .logo {
+    color: white;
+  }
+}
