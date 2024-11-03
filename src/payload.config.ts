@@ -13,6 +13,8 @@ import path from 'path'
 import { Block, buildConfig, FieldBase } from 'payload'
 import { fileURLToPath } from 'url'
 
+import { FormSubmissions } from './_payload/collections/FormSubmissions'
+import { Forms } from './_payload/collections/Forms'
 import { Pages } from './_payload/collections/Pages'
 import { Users } from './_payload/collections/Users'
 import { MainMenu } from './_payload/globals/MainMenu'
@@ -65,13 +67,8 @@ export default buildConfig({
           },
         },
       },
-      formSubmissionOverrides: {
-        admin: {
-          components: {
-            beforeListTable: ['src/components/ExportButton/index.tsx#ExportButton'],
-          },
-        },
-      },
+      formOverrides: Forms,
+      formSubmissionOverrides: FormSubmissions,
     }),
   ],
   secret: process.env.PAYLOAD_SECRET || '',

@@ -226,6 +226,7 @@ export interface Form {
   redirect?: {
     url: string;
   };
+  userConfirmationRequired?: boolean | null;
   emails?:
     | {
         emailTo?: string | null;
@@ -286,6 +287,7 @@ export interface FormSubmission {
         id?: string | null;
       }[]
     | null;
+  status?: ('pending' | 'confirmed' | 'cancelled') | null;
   updatedAt: string;
   createdAt: string;
 }
