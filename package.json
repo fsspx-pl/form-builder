@@ -1,8 +1,8 @@
 {
-  "name": "payload-form-builder-example",
-  "version": "1.0.0",
-  "description": "A blank template to get started with Payload 3.0",
-  "license": "MIT",
+  "name": "fsspx-form-builder",
+  "version": "0.0.1",
+  "description": "Form builder for FSSPX Poland",
+  "maintainers": ["jacek@adamczyk.me"],
   "type": "module",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
