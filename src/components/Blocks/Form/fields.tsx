@@ -1,3 +1,4 @@
+import { BirthYear } from './BirthYear'
 import { Checkbox } from './Checkbox'
 import { Country } from './Country'
 import { Email } from './Email'
@@ -15,6 +16,7 @@ export const fields = {
   message: Message,
   number: Number,
   select: Select,
+  birthYear: BirthYear,
   state: State,
   text: Text,
   textarea: Textarea,
