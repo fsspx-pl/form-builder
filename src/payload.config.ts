@@ -1,6 +1,6 @@
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
-import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
+import { fields, formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import {
   BoldFeature,
   FixedToolbarFeature,
@@ -10,7 +10,7 @@ import {
   lexicalEditor
 } from '@payloadcms/richtext-lexical'
 import path from 'path'
-import { buildConfig } from 'payload'
+import { Block, buildConfig, FieldBase } from 'payload'
 import { fileURLToPath } from 'url'
 
 import { Pages } from './_payload/collections/Pages'
@@ -53,6 +53,17 @@ export default buildConfig({
     formBuilderPlugin({
       fields: {
         payment: false,
+        birthYear: {
+          // @ts-ignore - https://github.com/payloadcms/payload/issues/7787
+          slug: 'birthYear',
+          fields: [
+            ...(fields.select as Block).fields.filter((field) => (field as FieldBase).name !== 'options')
+          ],
+          label: {
+            pl: 'Rok urodzenia',
+            en: 'Birth Year',
+          },
+        },
       },
       formSubmissionOverrides: {
         admin: {
