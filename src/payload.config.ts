@@ -18,6 +18,7 @@ import { Forms } from './_payload/collections/Forms'
 import { Pages } from './_payload/collections/Pages'
 import { Users } from './_payload/collections/Users'
 import { MainMenu } from './_payload/globals/MainMenu'
+import { EmailTemplates } from './_payload/globals/EmailTemplates'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -50,7 +51,7 @@ export default buildConfig({
     },
   }
   ),
-  globals: [MainMenu],
+  globals: [MainMenu, EmailTemplates],
   plugins: [
     formBuilderPlugin({
       fields: {

@@ -7,7 +7,7 @@ export async function GET(request: Request, { params }: { params: { submissionId
   const { submissionId } = params;
 
   const payload = await getPayloadHMR({ config });
-  const submission = await payload.update({
+  await payload.update({
     collection: 'form-submissions',
     id: submissionId,
     data: {
