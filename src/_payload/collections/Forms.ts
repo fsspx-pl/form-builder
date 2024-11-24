@@ -1,12 +1,30 @@
 import { CollectionConfig, Field } from "payload";
-import { confirmationEmailContentField } from "../globals/EmailTemplates";
+import { cancellationEmailContentField, confirmationEmailContentField } from "../globals/EmailTemplates";
 import { UserConfirmationRequired } from "./UserConfirmationRequired";
+import { getPayloadHMR } from "@payloadcms/next/utilities";
+import config from '@payload-config';
 
 export const Forms: Omit<CollectionConfig, 'fields' | 'slug'> & { fields: (args: { defaultFields: Field[] }) => Field[] } = {
   fields: ({ defaultFields }) => {
     const emailField = defaultFields[defaultFields.length - 1]
     const confirmationFields = defaultFields.slice(3, -1)
     const otherFields = defaultFields.slice(0, 3)
+
+    const getDefaultEmailContent = (type: 'confirmation' | 'cancellation') => async () => {
+      try {
+        const payload = await getPayloadHMR({ config })
+        const emailTemplates = await payload.findGlobal({
+          slug: 'email-templates'
+        })
+        return type === 'confirmation' ? emailTemplates.confirmationEmail : emailTemplates.cancellationEmail
+      } catch (err) {
+        console.error(`Error getting ${type} email content:`, err)
+        return null
+      }
+    }
+
+    const getDefaultConfirmationEmailContent = getDefaultEmailContent('confirmation')
+    const getDefaultCancellationEmailContent = getDefaultEmailContent('cancellation')
     return [
       ...otherFields,
       {
@@ -20,20 +38,22 @@ export const Forms: Omit<CollectionConfig, 'fields' | 'slug'> & { fields: (args:
       emailField,
       {
         ...confirmationEmailContentField,
-        label: {
-          en: 'Confirmation email content',
-          pl: 'Treść emaila potwierdzającego',
-        },
+        defaultValue: getDefaultConfirmationEmailContent,
         admin: {
-          description: {
-            en: 'Email content that will be sent to the user after submitting the form.',
-            pl: 'Treść emaila, która zostanie wysłana do użytkownika po wysłaniu formularza.',
-          },
           condition: (args) => {
             return args.confirmation.userConfirmationRequired
           },
         },
-      }
+      },
+      {
+        ...cancellationEmailContentField,
+        defaultValue: getDefaultCancellationEmailContent,
+        admin: {
+          condition: (args) => {
+            return args.confirmation.userConfirmationRequired
+          },
+        },
+      },
     ]
   },
 }
