@@ -7,8 +7,8 @@ import Blocks from '../../../components/Blocks'
 import { Metadata } from 'next'
 import { metadata } from '../metadata.constants'
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const page = await getPage(params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const page = await getPage((await params).slug)
   
   if (!page) return metadata
 
