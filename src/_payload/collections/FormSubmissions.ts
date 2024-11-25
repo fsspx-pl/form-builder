@@ -40,7 +40,7 @@ export const FormSubmissions: Omit<CollectionConfig, 'fields' | 'slug'> & { fiel
           const payload = await getPayloadHMR({ config })
           const form = await payload.findByID({
             collection: 'forms',
-            id: doc.form as string
+            id: (doc.form as Form).id
           })
 
           const link = `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/form-submissions/${doc.id}`
