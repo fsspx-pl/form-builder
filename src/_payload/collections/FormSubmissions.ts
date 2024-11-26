@@ -2,7 +2,7 @@ import { Form, FormSubmission } from "@payloadcms/plugin-form-builder/types";
 import { serializeLexical } from "node_modules/@payloadcms/plugin-form-builder/dist/utilities/lexical/serializeLexical";
 import { replaceDoubleCurlys } from "node_modules/@payloadcms/plugin-form-builder/dist/utilities/replaceDoubleCurlys";
 import { CollectionConfig, Field, PayloadRequest, RequestContext } from "payload";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
+import { getPayload } from "payload";
 import config from '@payload-config';
 import { Forms } from "./Forms";
 
@@ -37,7 +37,7 @@ export const FormSubmissions: Omit<CollectionConfig, 'fields' | 'slug'> & { fiel
             console.warn(`No name found in submission data ${context.id}, sending email cancelled.`)
             return
           }
-          const payload = await getPayloadHMR({ config })
+          const payload = await getPayload({ config })
           const form = await payload.findByID({
             collection: 'forms',
             id: (doc.form as Form).id

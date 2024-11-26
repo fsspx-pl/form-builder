@@ -1,7 +1,7 @@
 import { CollectionConfig, Field } from "payload";
 import { cancellationEmailContentField, confirmationEmailContentField } from "../globals/EmailTemplates";
 import { UserConfirmationRequired } from "./UserConfirmationRequired";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
+import { getPayload } from "payload";
 import config from '@payload-config';
 
 export const Forms: Omit<CollectionConfig, 'fields' | 'slug'> & { fields: (args: { defaultFields: Field[] }) => Field[] } = {
@@ -12,7 +12,7 @@ export const Forms: Omit<CollectionConfig, 'fields' | 'slug'> & { fields: (args:
 
     const getDefaultEmailContent = (type: 'confirmation' | 'cancellation') => async () => {
       try {
-        const payload = await getPayloadHMR({ config })
+        const payload = await getPayload({ config })
         const emailTemplates = await payload.findGlobal({
           slug: 'email-templates'
         })
