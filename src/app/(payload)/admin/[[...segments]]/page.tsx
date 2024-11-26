@@ -7,17 +7,20 @@ import { RootPage, generatePageMetadata } from '@payloadcms/next/views'
 import { importMap } from "../importMap.js"
 
 type Args = {
-  params: {
+  params: Promise<{
     segments: string[]
-  }
-  searchParams: {
+  }>
+  searchParams: Promise<{
     [key: string]: string | string[]
-  }
+  }>
 }
 
-export const generateMetadata = ({ params, searchParams }: Args): Promise<Metadata> =>
-  generatePageMetadata({ config, params, searchParams })
+export const generateMetadata = async ({ params, searchParams }: Args): Promise<Metadata> => {
+  return generatePageMetadata({ config, params, searchParams })
+}
 
-const Page = ({ params, searchParams }: Args) => RootPage({ config, importMap, params, searchParams })
+const Page = async ({ params, searchParams }: Args) => {
+  return RootPage({ config, importMap, params, searchParams })
+}
 
 export default Page
