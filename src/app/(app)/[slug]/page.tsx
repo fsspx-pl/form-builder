@@ -2,7 +2,7 @@ import config from '@payload-config'
 import { notFound } from 'next/navigation'
 import React from 'react'
 
-import { getPayloadHMR } from '@payloadcms/next/utilities'
+import { getPayload } from 'payload'
 import { Metadata } from 'next'
 import Blocks from '../../../components/Blocks'
 import { metadata } from '../metadata.constants'
@@ -38,7 +38,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
 export const getPage = async (slug: string) => {
   try {
-    const payload = await getPayloadHMR({ config })
+    const payload = await getPayload({ config })
     const pages = await payload.find({
       collection: 'pages',
       draft: false,
@@ -60,7 +60,7 @@ export const getPage = async (slug: string) => {
 
 export async function generateStaticParams() {
   try {
-    const payload = await getPayloadHMR({ config })
+    const payload = await getPayload({ config })
     const pages = await payload.find({
       collection: 'pages',
       draft: false,
