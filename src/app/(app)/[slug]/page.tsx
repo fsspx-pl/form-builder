@@ -1,14 +1,15 @@
-import configPromise from '@payload-config'
+import config from '@payload-config'
 import { notFound } from 'next/navigation'
-import { getPayload } from 'payload'
 import React from 'react'
 
-import Blocks from '../../../components/Blocks'
+import { getPayload } from 'payload'
 import { Metadata } from 'next'
+import Blocks from '../../../components/Blocks'
 import { metadata } from '../metadata.constants'
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const page = await getPage(params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const slug = (await params).slug
+  const page = await getPage(slug)
   
   if (!page) return metadata
 
@@ -20,7 +21,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default async function Page({ params: { slug = 'home' } }) {
+export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
+  const slug = (await params).slug
   const page = await getPage(slug)
 
   if (!page) {
@@ -36,7 +38,7 @@ export default async function Page({ params: { slug = 'home' } }) {
 
 export const getPage = async (slug: string) => {
   try {
-    const payload = await getPayload({ config: configPromise })
+    const payload = await getPayload({ config })
     const pages = await payload.find({
       collection: 'pages',
       draft: false,
@@ -58,7 +60,7 @@ export const getPage = async (slug: string) => {
 
 export async function generateStaticParams() {
   try {
-    const payload = await getPayload({ config: configPromise })
+    const payload = await getPayload({ config })
     const pages = await payload.find({
       collection: 'pages',
       draft: false,
@@ -66,7 +68,9 @@ export async function generateStaticParams() {
       overrideAccess: false,
     })
 
-    return pages.docs.map((doc) => doc.slug!)
+    return pages.docs.map((doc) => ({
+      slug: doc.slug,
+    }))
   } catch (error) {
     console.error('Error in generateStaticParams:', error)
     return [] // Return an empty array if there's an error

@@ -6,12 +6,12 @@ import { MainMenu } from '@/payload-types';
 import { GlobalsProvider } from '@/providers/Globals';
 import { ModalContainer, ModalProvider } from '@faceless-ui/modal';
 import config from '@payload-config';
-import { getPayloadHMR } from '@payloadcms/next/utilities';
+import { getPayload } from 'payload';
 import '../../css/app.scss';
 
 async function getAllGlobals(): Promise<MainMenu> {
   try {
-    const payload = await getPayloadHMR({ config })
+    const payload = await getPayload({ config })
     const mainMenu = await payload.findGlobal({
       slug: 'main-menu',
       depth: 1,

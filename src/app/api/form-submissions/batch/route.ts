@@ -1,5 +1,5 @@
 import config from '@payload-config';
-import { getPayloadHMR } from '@payloadcms/next/utilities';
+import { getPayload } from 'payload';
 import { NextResponse } from 'next/server';
 import { CollectionSlug } from 'payload';
 
@@ -11,7 +11,7 @@ export async function POST(request: Request) {
   try {
     const { submissionIds }: BatchRequest = await request.json();
     
-    const payload = await getPayloadHMR({ config });
+    const payload = await getPayload({ config });
     const submissions = await payload.find({
       collection: 'form-submissions' as CollectionSlug,
       where: {
