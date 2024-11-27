@@ -1,10 +1,7 @@
-import { Form, FormSubmission } from "@payloadcms/plugin-form-builder/types";
+import { FormSubmission } from "@payloadcms/plugin-form-builder/types";
 import { serializeLexical } from "node_modules/@payloadcms/plugin-form-builder/dist/utilities/lexical/serializeLexical";
 import { replaceDoubleCurlys } from "node_modules/@payloadcms/plugin-form-builder/dist/utilities/replaceDoubleCurlys";
 import { CollectionConfig, Field, PayloadRequest, RequestContext } from "payload";
-import { getPayload } from "payload";
-import config from '@payload-config';
-import { Forms } from "./Forms";
 
 export enum SubmissionStatus {
   PENDING = 'pending',
@@ -37,10 +34,9 @@ export const FormSubmissions: Omit<CollectionConfig, 'fields' | 'slug'> & { fiel
             console.warn(`No name found in submission data ${context.id}, sending email cancelled.`)
             return
           }
-          const payload = await getPayload({ config })
-          const form = await payload.findByID({
+          const form = await req.payload.findByID({
             collection: 'forms',
-            id: (doc.form as Form).id
+            id: doc.form as string
           })
 
           const link = `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/form-submissions/${doc.id}`
@@ -49,11 +45,9 @@ export const FormSubmissions: Omit<CollectionConfig, 'fields' | 'slug'> & { fiel
 
           const title = form.title
           const messageTemplate = doc.status === SubmissionStatus.PENDING
-            // @ts-ignore
-            ? (form as Form).confirmationEmail
+            ? form.confirmationEmail
             : doc.status === SubmissionStatus.CONFIRMED
-            // @ts-ignore
-            ? (form as typeof Forms).cancellationEmail
+            ? form.cancellationEmail
             : undefined
           const serialized = await serializeLexical(messageTemplate)
           const message = replaceDoubleCurlys(serialized, [
