@@ -13,9 +13,12 @@ import path from 'path'
 import { Block, buildConfig, FieldBase } from 'payload'
 import { fileURLToPath } from 'url'
 
+import { FormSubmissions } from './_payload/collections/FormSubmissions'
+import { Forms } from './_payload/collections/Forms'
 import { Pages } from './_payload/collections/Pages'
 import { Users } from './_payload/collections/Users'
 import { MainMenu } from './_payload/globals/MainMenu'
+import { EmailTemplates } from './_payload/globals/EmailTemplates'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -48,7 +51,7 @@ export default buildConfig({
     },
   }
   ),
-  globals: [MainMenu],
+  globals: [MainMenu, EmailTemplates],
   plugins: [
     formBuilderPlugin({
       fields: {
@@ -65,13 +68,8 @@ export default buildConfig({
           },
         },
       },
-      formSubmissionOverrides: {
-        admin: {
-          components: {
-            beforeListTable: ['src/components/ExportButton/index.tsx#ExportButton'],
-          },
-        },
-      },
+      formOverrides: Forms,
+      formSubmissionOverrides: FormSubmissions,
     }),
   ],
   secret: process.env.PAYLOAD_SECRET || '',
