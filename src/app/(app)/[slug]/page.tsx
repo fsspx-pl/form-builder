@@ -6,6 +6,7 @@ import { getPayload } from 'payload'
 import { Metadata } from 'next'
 import Blocks from '../../../components/Blocks'
 import { metadata } from '../metadata.constants'
+import { Form } from '@/payload-types'
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const slug = (await params).slug
@@ -26,6 +27,12 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const page = await getPage(slug)
 
   if (!page) {
+    return notFound()
+  }
+
+  const formBlock = page.layout.find((block) => block.blockType === 'formBlock')
+  const isFormVisible = (formBlock?.form as Form)?.basicInformation?.visible
+  if (!isFormVisible) {
     return notFound()
   }
 
