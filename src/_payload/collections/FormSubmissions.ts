@@ -1,4 +1,4 @@
-import { FormSubmission } from "@payloadcms/plugin-form-builder/types";
+import { Form, FormSubmission } from "@payloadcms/plugin-form-builder/types";
 import { serializeLexical } from "node_modules/@payloadcms/plugin-form-builder/dist/utilities/lexical/serializeLexical";
 import { replaceDoubleCurlys } from "node_modules/@payloadcms/plugin-form-builder/dist/utilities/replaceDoubleCurlys";
 import { CollectionConfig, Field, PayloadRequest, RequestContext } from "payload";
@@ -36,7 +36,7 @@ export const FormSubmissions: Omit<CollectionConfig, 'fields' | 'slug'> & { fiel
           }
           const form = await req.payload.findByID({
             collection: 'forms',
-            id: doc.form as string
+            id: (doc.form as Form).id
           })
 
           const link = `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/form-submissions/${doc.id}`
