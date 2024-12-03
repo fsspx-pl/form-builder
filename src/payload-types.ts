@@ -108,6 +108,18 @@ export interface Page {
 export interface Form {
   id: string;
   title: string;
+  basicInformation?: {
+    visible?: boolean | null;
+    active?: boolean | null;
+    statusMessage?: string | null;
+    start?: {
+      date?: string | null;
+    };
+    end?: {
+      date?: string | null;
+      skip?: boolean | null;
+    };
+  };
   fields?:
     | (
         | {
@@ -453,6 +465,24 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface FormsSelect<T extends boolean = true> {
   title?: T;
+  basicInformation?:
+    | T
+    | {
+        visible?: T;
+        active?: T;
+        statusMessage?: T;
+        start?:
+          | T
+          | {
+              date?: T;
+            };
+        end?:
+          | T
+          | {
+              date?: T;
+              skip?: T;
+            };
+      };
   fields?:
     | T
     | {
