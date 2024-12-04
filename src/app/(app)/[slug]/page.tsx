@@ -6,6 +6,7 @@ import { getPayload } from 'payload'
 import { Metadata } from 'next'
 import Blocks from '../../../components/Blocks'
 import { metadata } from '../metadata.constants'
+import { unstable_cache } from 'next/cache'
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const slug = (await params).slug
@@ -39,17 +40,25 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 export const getPage = async (slug: string) => {
   try {
     const payload = await getPayload({ config })
-    const pages = await payload.find({
-      collection: 'pages',
-      draft: false,
-      limit: 1,
-      overrideAccess: false,
-      where: {
-        slug: {
-          equals: slug,
-        },
+    const getCachedPagesBySlug = unstable_cache(
+      async () =>
+        await payload.find({
+          collection: 'pages',
+          draft: false,
+          limit: 1,
+          overrideAccess: false,
+          where: {
+            slug: {
+              equals: slug,
+            },
+          },
+        }),
+      [`page-${slug}`],
+      {
+        tags: [`page-${slug}`],
       },
-    })
+    )
+    const pages = await getCachedPagesBySlug()
   
     return pages.docs[0]
   }
