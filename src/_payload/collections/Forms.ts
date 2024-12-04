@@ -3,6 +3,7 @@ import { cancellationEmailContentField, confirmationEmailContentField } from "..
 import { UserConfirmationRequired } from "./UserConfirmationRequired";
 import { getPayload } from "payload";
 import config from '@payload-config';
+import { revalidatePath, revalidateTag } from "next/cache";
 
 export const Forms: Omit<CollectionConfig, 'fields' | 'slug'> & { fields: (args: { defaultFields: Field[] }) => Field[] } = {
   fields: ({ defaultFields }) => {
@@ -56,4 +57,23 @@ export const Forms: Omit<CollectionConfig, 'fields' | 'slug'> & { fields: (args:
       },
     ]
   },
+  hooks: {
+    afterChange: [
+      async ({ doc }) => {
+        const payload = await getPayload({ config })
+        const pages = await payload.find({
+          collection: 'pages',
+          where: {
+            'layout.form': {
+              equals: doc.id
+            }
+          }
+        })
+        
+        pages.docs.forEach(page => {
+          revalidateTag(`page-${page.slug}`)
+        })
+      }
+    ]
+  }
 }
