@@ -10,7 +10,7 @@ const getEmailContentField = ({
   requiredToken,
   description,
 }: {
-  label: string
+  label: string | { en: string, pl: string }
   name: string
   requiredToken: string
   description: Description
@@ -33,7 +33,10 @@ const getEmailContentField = ({
 })
 
 export const confirmationEmailContentField = getEmailContentField({
-  label: 'Confirmation email content',
+  label: {
+    en: 'Confirmation email content',
+    pl: 'Treść emaila potwierdzającego',
+  },
   name: 'confirmationEmail',
   requiredToken: CONFIRMATION_LINK_REPLACEMENT_TOKEN,
   description: {
@@ -42,7 +45,10 @@ export const confirmationEmailContentField = getEmailContentField({
   },
 })
 export const cancellationEmailContentField = getEmailContentField({
-  label: 'Cancellation email content',
+  label: {
+    en: 'Cancellation email content',
+    pl: 'Treść emaila anulującego',
+  },
   name: 'cancellationEmail',
   requiredToken: CANCELLATION_LINK_REPLACEMENT_TOKEN,
   description: {
@@ -54,8 +60,10 @@ export const cancellationEmailContentField = getEmailContentField({
 export const EmailTemplates: GlobalConfig = {
   slug: 'email-templates',
   admin: {
-    description:
-      'Email templates used in the application. They can be overridden in respective form settings.',
+    description: {
+      en: 'Email templates used in the application. They can be overridden in respective form settings.',
+      pl: 'Szablony maili używanych w aplikacji. Mogą zostać nadpisane przy edycji konkretnych formularzy.',
+    },
   },
   access: {
     // TODO admins only?

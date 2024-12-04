@@ -72,19 +72,31 @@ export const FormSubmissions: Omit<CollectionConfig, 'fields' | 'slug'> & { fiel
         {
           name: 'status',
           type: 'select',
-          label: 'Status',
+          label: {
+            en: 'Status',
+            pl: 'Status',
+          },
           defaultValue: SubmissionStatus.PENDING,
           options: [
             {
-              label: 'Pending',
+              label: {
+                en: 'Pending',
+                pl: 'Oczekujące',
+              },
               value: SubmissionStatus.PENDING,
             },
             {
-              label: 'Confirmed',
+              label: {
+                en: 'Confirmed',
+                pl: 'Potwierdzone',
+              },
               value: SubmissionStatus.CONFIRMED,
             },
             {
-              label: 'Cancelled',
+              label: {
+                en: 'Cancelled',
+                pl: 'Anulowane',
+              },
               value: SubmissionStatus.CANCELLED,
             },
           ]

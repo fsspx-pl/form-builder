@@ -13,11 +13,18 @@ export const FormBlock: Block = {
     },
     {
       name: 'enableIntro',
+      label: {
+        en: 'Enable Intro Content',
+        pl: 'Dodaj tekst wprowadzający',
+      },
       type: 'checkbox',
-      label: 'Enable Intro Content',
     },
     {
       name: 'introContent',
+      label: {
+        en: 'Intro Content',
+        pl: 'Tekst wprowadzający'
+      },
       type: 'richText',
       admin: {
         condition: (_, { enableIntro }) => Boolean(enableIntro),
@@ -27,11 +34,16 @@ export const FormBlock: Block = {
           return [...rootFeatures, HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3'] })]
         },
       }),
-      label: 'Intro Content',
     },
   ],
   labels: {
-    plural: 'Form Blocks',
-    singular: 'Form Block',
+    plural: {
+      en: 'Form Blocks',
+      pl: 'Bloki formularza'
+    },
+    singular: {
+      en: 'Form Block',
+      pl: 'Blok formularza',
+    },
   },
 }
