@@ -7,6 +7,22 @@ import { Metadata } from 'next'
 import Blocks from '../../../components/Blocks'
 import { metadata } from '../metadata.constants'
 import { unstable_cache } from 'next/cache'
+import { Gutter } from '@/components/Gutter'
+
+import { EB_Garamond } from 'next/font/google'
+
+const ebGaramond = EB_Garamond({
+  subsets: ['latin'],
+  weight: ['400'],
+})
+
+const Title = ({ text }: { text: string }) => {
+  return (
+    <Gutter>
+      <h3 className={ebGaramond.className} style={{ fontWeight: '400' }}>{text}</h3>
+    </Gutter>
+  )
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const slug = (await params).slug
@@ -31,9 +47,12 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   }
 
   return (
-    <React.Fragment>
-      <Blocks blocks={page.layout} />
-    </React.Fragment>
+    <>
+      <Title text={page.title} />
+      <React.Fragment>
+        <Blocks blocks={page.layout} />
+      </React.Fragment>
+    </>
   )
 }
 
