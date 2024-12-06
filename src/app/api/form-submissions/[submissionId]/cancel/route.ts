@@ -18,5 +18,5 @@ export async function GET(
     },
   });
 
-  return NextResponse.redirect(new URL('/submission-cancelled', request.url));
+  return NextResponse.redirect(new URL(`${process.env.NEXT_PUBLIC_PAYLOAD_URL}/submission-cancelled`, request.url));
 }
