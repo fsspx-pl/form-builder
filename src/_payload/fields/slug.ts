@@ -16,10 +16,7 @@ export const slugField: Slug = (fieldToUse = 'title', overrides = {}) =>
         beforeValidate: [formatSlug(fieldToUse)],
       },
       index: true,
-      label: {
-        en: 'Slug',
-        pl: 'Adres URL',
-      },
+      label: 'Slug',
     },
     overrides,
   )

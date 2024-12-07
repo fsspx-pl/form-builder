@@ -24,10 +24,6 @@ export const Pages: CollectionConfig = {
   fields: [
     {
       name: 'title',
-      label: {
-        en: 'Title',
-        pl: 'Nazwa',
-      },
       type: 'text',
       required: true,
     },
@@ -38,19 +34,12 @@ export const Pages: CollectionConfig = {
           fields: [
             {
               name: 'layout',
-              label: {
-                en: 'Layout',
-                pl: 'Układ',
-              },
               type: 'blocks',
               blocks: [FormBlock],
               required: true,
             },
           ],
-          label: {
-            en: 'Content',
-            pl: 'Treść',
-          },
+          label: 'Content',
         },
       ],
     },

@@ -2,24 +2,15 @@ import { deepMerge, GroupField, type Field } from 'payload'
 
 export const appearanceOptions = {
   default: {
-    label: {
-      en:'Default',
-      pl: 'Standardowy',
-    },
+    label: 'Default',
     value: 'default',
   },
   primary: {
-    label: {
-      en: 'Primary Button',
-      pl: 'Przycisk główny',
-    },
+    label: 'Primary Button',
     value: 'primary',
   },
   secondary: {
-    label: {
-      en: 'Secondary Button',
-      pl: 'Przycisk drugorzędny',
-    },
+    label: 'Secondary Button',
     value: 'secondary',
   },
 }
@@ -53,17 +44,11 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
             defaultValue: 'reference',
             options: [
               {
-                label: {
-                  en: 'Internal link',
-                  pl: 'Link wewnętrzny',
-                },
+                label: 'Internal link',
                 value: 'reference',
               },
               {
-                label: {
-                  en: 'Custom URL',
-                  pl: 'Link niestandardowy'
-                },
+                label: 'Custom URL',
                 value: 'custom',
               },
             ],
@@ -77,10 +62,7 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
               },
               width: '50%',
             },
-            label: {
-              en: 'Open in new tab',
-              pl: 'Otwórz w nowym oknie',
-            },
+            label: 'Open in new tab',
           },
         ],
       },
@@ -94,10 +76,7 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'reference',
       },
-      label: {
-        en: 'Document to link to',
-        pl: 'Dokument do którego prowadzi link',
-      },
+      label: 'Document to link to',
       maxDepth: 1,
       relationTo: ['pages'],
       required: true,
@@ -108,10 +87,7 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'custom',
       },
-      label: {
-        en: 'Custom URL',
-        pl: 'Link niestandardowy'
-      },
+      label: 'Custom URL',
       required: true,
     },
   ]
@@ -130,10 +106,7 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
           admin: {
             width: '50%',
           },
-          label: {
-            en: 'Label',
-            pl: 'Etykieta',
-          },
+          label: 'Label',
           required: true,
         },
       ],

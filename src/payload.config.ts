@@ -12,8 +12,6 @@ import {
 import path from 'path'
 import { Block, buildConfig, FieldBase } from 'payload'
 import { fileURLToPath } from 'url'
-import { pl } from '@payloadcms/translations/languages/pl'
-import { en } from '@payloadcms/translations/languages/en'
 
 import { FormSubmissions } from './_payload/collections/FormSubmissions'
 import { Forms } from './_payload/collections/Forms'
@@ -54,9 +52,6 @@ export default buildConfig({
   }
   ),
   globals: [MainMenu, EmailTemplates],
-  i18n: {
-    supportedLanguages: { pl, en },
-  },
   plugins: [
     formBuilderPlugin({
       fields: {
