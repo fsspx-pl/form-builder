@@ -6,8 +6,8 @@ import { Title } from '@/components/Title'
 import { Metadata } from 'next'
 import { unstable_cache } from 'next/cache'
 import { getPayload } from 'payload'
-import Blocks from '../../../components/Blocks'
-import { metadata } from '../metadata.constants'
+import Blocks from '../../../../components/Blocks'
+import { metadata } from '../../metadata.constants'
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const slug = (await params).slug
