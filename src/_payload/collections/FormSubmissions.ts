@@ -18,9 +18,15 @@ export const FormSubmissions: Omit<CollectionConfig, 'fields' | 'slug'> & { fiel
     access: {
       update: () => true,
     },
-    hooks: { 
+    hooks: {
       afterChange: [
         async ({ previousDoc, doc, req, context }: { previousDoc: FormSubmission & { status: SubmissionStatus }, doc: { id: string } & FormSubmission & { status: SubmissionStatus }, req: PayloadRequest, context: RequestContext }) => {          
+          const form = await req.payload.findByID({
+            collection: 'forms',
+            id: (doc.form as Form).id
+          })
+          if(!form.confirmation?.userConfirmationRequired) return
+
           if(previousDoc.status === doc.status) return
           if(doc.status === SubmissionStatus.CANCELLED) return
           const email = doc.submissionData.find(({ field }) => field === 'email')?.value
@@ -34,10 +40,6 @@ export const FormSubmissions: Omit<CollectionConfig, 'fields' | 'slug'> & { fiel
             console.warn(`No name found in submission data ${context.id}, sending email cancelled.`)
             return
           }
-          const form = await req.payload.findByID({
-            collection: 'forms',
-            id: (doc.form as Form).id
-          })
 
           const link = `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/form-submissions/${doc.id}`
           const cancellationLink = `${link}/cancel`

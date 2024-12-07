@@ -131,15 +131,16 @@ export const FormBlock: React.FC<
       <div
         className={[classes.form, hasSubmitted && classes.hasSubmitted].filter(Boolean).join(' ')}
       >
-        {enableIntro && introContent && !hasSubmitted && (
+        {enableIntro && introContent && !hasSubmitted && !isLoading && (
           <RichText className={classes.intro} content={introContent} />
         )}
         {!isLoading && hasSubmitted && confirmationType === 'message' && (
-          <RichText className={classes.confirmationMessage} content={confirmationMessage} />
+          // <RichText className={classes.confirmationMessage} content={confirmationMessage} />
+          <p>Bóg zapłać!<br />Na podany w formularzu adres e-mail wysłaliśmy potwierdzenie zgłoszenia. Prosimy o cierpliwość w oczekiwaniu na odpowiedź z propozycją terminu wizyty – żadne zgłoszenie nie powinno zostać pominięte.</p>
         )}
-        {isLoading && !hasSubmitted && <p>Loading, please wait...</p>}
+        {isLoading && !hasSubmitted && <p>Wysyłanie formularza, proszę czekać...</p>}
         {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
-        {!hasSubmitted && (
+        {!hasSubmitted && !isLoading && (
           <form id={formID} onSubmit={handleSubmit(onSubmit)}>
             <div className={classes.fieldWrap}>
               {formFromProps &&
